@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IVE - I have = IVE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #000000 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* LOGO EN LA ESQUINA - MEJORADO */
+        .logo-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            width: 110px;
+            height: 110px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.6),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .logo-container:hover {
+            transform: scale(1.15) rotate(360deg);
+            box-shadow: 
+                0 15px 60px rgba(255, 255, 255, 0.4),
+                inset 0 0 30px rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-placeholder {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.75em;
+            text-align: center;
+            padding: 10px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        /* HEADER MEJORADO */
+        header {
+            background: linear-gradient(135deg, #000000 0%, #0d0d0d 50%, #1a1a1a 100%);
+            padding: 140px 20px 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 60px rgba(0, 0, 0, 0.9);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.02) 2px,
+                    rgba(255, 255, 255, 0.02) 4px
+                );
+            pointer-events: none;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+            animation: pulse 5s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1); 
+                opacity: 0.4; 
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.3); 
+                opacity: 0.7; 
+            }
+        }
+
+        h1 {
+            font-size: 9em;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 
+                0 0 15px rgba(255, 255, 255, 0.6),
+                0 0 30px rgba(255, 255, 255, 0.4),
+                0 0 45px rgba(255, 255, 255, 0.3),
+                0 0 60px rgba(255, 255, 255, 0.2),
+                5px 5px 10px rgba(0, 0, 0, 0.8);
+            letter-spacing: 35px;
+            position: relative;
+            z-index: 1;
+            animation: titleGlow 4s ease-in-out infinite alternate;
+            background: linear-gradient(45deg, #ffffff, #e0e0e0, #ffffff, #f5f5f5);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @keyframes titleGlow {
+            0% { 
+                filter: brightness(1) drop-shadow(0 0 20px rgba(255,255,255,0.3));
+                transform: scale(1);
+                background-position: 0% 50%;
+            }
+            100% { 
+                filter: brightness(1.3) drop-shadow(0 0 40px rgba(255,255,255,0.5));
+                transform: scale(1.03);
+                background-position: 100% 50%;
+            }
+        }
+
+        .subtitle {
+            font-size: 2.2em;
+            color: #e0e0e0;
+            margin-top: 25px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 
+                3px 3px 6px rgba(0, 0, 0, 0.9),
+                0 0 10px rgba(255, 255, 255, 0.3);
+            font-weight: 300;
+            letter-spacing: 10px;
+            animation: fadeIn 2.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* NAVEGACIÓN MEJORADA */
+        nav {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 22px;
+            text-align: center;
+            box-shadow: 
+                0 5px 40px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 35px;
+            font-size: 1.15em;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            padding: 12px 25px;
+            border-radius: 30px;
+            position: relative;
+            letter-spacing: 2.5px;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ffffff, transparent);
+            transition: width 0.4s ease;
+            pointer-events: none;
+        }
+
+        nav a:hover::before {
+            width: 90%;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 70px 50px;
+        }
+
+        /* SECCIONES MEJORADAS */
+        section {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(15px);
+            margin: 60px 0;
+            padding: 70px;
+            border-radius: 35px;
+            box-shadow: 
+                0 25px 70px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        section:hover {
+            transform: translateY(-15px);
+            box-shadow: 
+                0 35px 90px rgba(0, 0, 0, 0.8),
+                0 0 50px rgba(255, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        h2 {
+            color: #ffffff;
+            font-size: 3.2em;
+            margin-bottom: 45px;
+            border-bottom: 4px solid rgba(255, 255, 255, 0.25);
+            padding-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            font-weight: 800;
+            text-shadow: 
+                3px 3px 6px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        /* GALERÍA DE FOTOS - NUEVO */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 35px;
+            margin-top: 45px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 25px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            aspect-ratio: 4/3;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 
+                0 25px 60px rgba(255, 255, 255, 0.3),
+                0 0 40px rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s;
+            filter: brightness(0.9);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.15);
+            filter: brightness(1.1);
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
+            transition: all 0.4s;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .gallery-item:hover::before {
+            background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.1));
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2a2a2a, #0d0d0d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 1.2em;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .members {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 45px;
+            margin-top: 45px;
+        }
+
+        /* TARJETAS DE MIEMBROS MEJORADAS - ARREGLADO */
+        .member-card {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(15px);
+            padding: 35px;
+            border-radius: 25px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 
+                0 12px 35px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ESTE ERA EL PROBLEMA - AGREGUÉ pointer-events: none */
+        .member-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none; /* ← ESTO ARREGLA EL PROBLEMA */
+        }
+
+        .member-card:hover::before {
+            opacity: 1;
+        }
+
+        .member-card:hover {
+            transform: translateY(-20px) scale(1.05);
+            box-shadow: 
+                0 25px 60px rgba(255, 255, 255, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .member-photo {
+            width: 240px;
+            height: 240px;
+            background: linear-gradient(135deg, #2a2a2a, #0d0d0d);
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 
+                0 12px 35px rgba(0, 0, 0, 0.9),
+                inset 0 0 25px rgba(255, 255, 255, 0.1),
+                0 0 0 10px rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+        }
+
+        .member-photo::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+            pointer-events: none;
+        }
+
+        .member-card:hover .member-photo {
+            border-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 
+                0 20px 50px rgba(255, 255, 255, 0.4),
+                inset 0 0 40px rgba(255, 255, 255, 0.2),
+                0 0 60px rgba(255, 255, 255, 0.3);
+            transform: scale(1.08) rotate(5deg);
+        }
+
+        .member-card:hover .member-photo::after {
+            left: 150%;
+        }
+
+        .member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(15%) contrast(1.1);
+            transition: all 0.5s;
+        }
+
+        .member-card:hover .member-photo img {
+            filter: grayscale(0%) contrast(1.15) brightness(1.05);
+            transform: scale(1.15);
+        }
+
+        .member-card h3 {
+            color: #ffffff;
+            font-size: 2.1em;
+            margin-bottom: 18px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .member-card p {
+            color: #d0d0d0;
+            line-height: 2;
+            font-weight: 300;
+            font-size: 1.05em;
+        }
+
+        .member-card strong {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .member-instagram {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 2px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 10; /* Asegura que esté encima */
+        }
+
+        .member-instagram a {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            padding: 14px 35px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1em;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            margin-top: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer; /* Asegura que se vea la manito */
+            position: relative;
+            z-index: 10;
+        }
+
+        .member-instagram a:hover {
+            background: rgba(255, 255, 255, 0.95);
+            color: #000000;
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+            border-color: rgba(255, 255, 255, 1);
+        }
+
+        /* VIDEOS MEJORADOS */
+        .videos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 45px;
+            margin-top: 45px;
+        }
+
+        .video-card {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
+            padding: 0;
+            border-radius: 25px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            overflow: hidden;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+        }
+
+        .video-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 
+                0 30px 70px rgba(255, 255, 255, 0.25),
+                0 0 50px rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .video-thumbnail-link {
+            display: block;
+            position: relative;
+            overflow: hidden;
+            border-radius: 25px 25px 0 0;
+        }
+
+        .video-thumbnail-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.4));
+            transition: all 0.4s;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .video-card:hover .video-thumbnail-link::before {
+            background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.2));
+        }
+
+        .video-thumbnail-link img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: all 0.5s;
+            filter: brightness(0.9);
+        }
+
+        .video-card:hover .video-thumbnail-link img {
+            transform: scale(1.12);
+            filter: brightness(1.1);
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90px;
+            height: 90px;
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 2;
+            box-shadow: 
+                0 8px 30px rgba(0, 0, 0, 0.6),
+                inset 0 0 20px rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+        }
+
+        .video-card:hover .play-button {
+            transform: translate(-50%, -50%) scale(1.25) rotate(90deg);
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 
+                0 12px 40px rgba(255, 255, 255, 0.5),
+                inset 0 0 30px rgba(255, 255, 255, 0.8);
+        }
+
+        .play-button::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 28px solid #000000;
+            border-top: 18px solid transparent;
+            border-bottom: 18px solid transparent;
+            margin-left: 6px;
+        }
+
+        .video-info {
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .video-card h3 {
+            color: #ffffff;
+            margin-bottom: 18px;
+            font-size: 1.65em;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .video-card p {
+            color: #d0d0d0;
+            margin: 0;
+            font-weight: 300;
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+
+        /* DISCOGRAFÍA MEJORADA */
+        .discography {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            padding: 45px;
+            border-radius: 25px;
+            margin-top: 45px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .album {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            margin: 25px 0;
+            border-radius: 20px;
+            border-left: 6px solid rgba(255, 255, 255, 0.8);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-left-width: 6px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .album:hover {
+            border-left-width: 12px;
+            border-left-color: rgba(255, 255, 255, 1);
+            padding-left: 40px;
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(15px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+        }
+
+        .album h3 {
+            color: #ffffff;
+            font-size: 1.75em;
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .album p {
+            color: #d0d0d0;
+            font-weight: 300;
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+
+        .album strong {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        /* FOOTER MEJORADO */
+        footer {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            color: #ffffff;
+            text-align: center;
+            padding: 60px 40px;
+            margin-top: 100px;
+            border-top: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        footer h3 {
+            font-size: 2.3em;
+            margin-bottom: 25px;
+            font-weight: 800;
+            letter-spacing: 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .social-links {
+            margin-top: 35px;
+        }
+
+        .social-links a {
+            color: #d0d0d0;
+            text-decoration: none;
+            margin: 0 25px;
+            font-size: 1.4em;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .social-links a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        .intro-text {
+            font-size: 1.25em;
+            line-height: 2.2;
+            color: #d0d0d0;
+            margin-bottom: 30px;
+            font-weight: 300;
+            text-align: justify;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 1024px) {
+            h1 {
+                font-size: 6em;
+                letter-spacing: 25px;
+            }
+
+            .logo-container {
+                width: 90px;
+                height: 90px;
+            }
+
+            .container {
+                padding: 50px 35px;
+            }
+
+            .photo-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 4em;
+                letter-spacing: 18px;
+            }
+
+            .subtitle {
+                font-size: 1.6em;
+                letter-spacing: 6px;
+            }
+
+            .logo-container {
+                width: 75px;
+                height: 75px;
+                top: 15px;
+                left: 15px;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 10px 15px;
+                font-size: 1em;
+            }
+
+            section {
+                padding: 45px 35px;
+            }
+
+            h2 {
+                font-size: 2.4em;
+                letter-spacing: 5px;
+            }
+
+            .members {
+                grid-template-columns: 1fr;
+            }
+
+            .videos {
+                grid-template-columns: 1fr;
+            }
+
+            .photo-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .member-photo {
+                width: 200px;
+                height: 200px;
+            }
+
+            .container {
+                padding: 35px 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.8em;
+                letter-spacing: 10px;
+            }
+
+            .subtitle {
+                font-size: 1.3em;
+                letter-spacing: 4px;
+            }
+
+            header {
+                padding: 110px 20px 70px;
+            }
+
+            .logo-container {
+                width: 65px;
+                height: 65px;
+                top: 12px;
+                left: 12px;
+            }
+
+            nav a {
+                margin: 6px 10px;
+                font-size: 0.9em;
+                padding: 10px 18px;
+            }
+
+            section {
+                padding: 35px 25px;
+                margin: 35px 0;
+            }
+
+            h2 {
+                font-size: 2em;
+                letter-spacing: 4px;
+            }
+
+            .member-card h3 {
+                font-size: 1.7em;
+            }
+
+            .album h3 {
+                font-size: 1.5em;
+            }
+
+            .intro-text {
+                font-size: 1.05em;
+                text-align: left;
+            }
+        }
+
+        /* SCROLLBAR PERSONALIZADO MEJORADO */
+        ::-webkit-scrollbar {
+            width: 14px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2));
+            border-radius: 10px;
+            border: 2px solid #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.4));
+        }
+    </style>
+</head>
+<body>
+    <!-- LOGO EN LA ESQUINA -->
+    <div class="logo-container">
+        <img src="Ive_Logo.jpg" alt="Logo IVE" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div class="logo-placeholder" style="display: none;">IVE<br>LOGO</div>
+    </div>
+
+    <header>
+        <h1>IVE</h1>
+        <p class="subtitle">I HAVE = IVE</p>
+    </header>
+
+    <nav>
+        <a href="#about">ACERCA DE</a>
+        <a href="#gallery">GALERÍA</a>
+        <a href="#members">MIEMBROS</a>
+        <a href="#music">MÚSICA</a>
+        <a href="#videos">VIDEOS</a>
+    </nav>
+
+    <div class="container">
+    <section id="about">
+        <h2>Acerca de IVE</h2>
+        
+        <p class="intro-text">
+            <strong>IVE (아이브)</strong> es un girl group surcoreano de seis miembros formado por <strong>Starship Entertainment</strong>. Su nombre es una declaración directa: viene de <em>"I HAVE"</em>, representando que ellas ya lo tienen todo —talento, carisma y presencia— desde el primer segundo. No están persiguiendo el éxito, simplemente lo demuestran porque ya es parte de su ADN.
+        </p>
+
+        <p class="intro-text">
+            Con base en Seúl, el grupo se anunció oficialmente en noviembre de 2021, revelando una alineación perfecta: <strong>Yujin, Gaeul, Wonyoung, Liz, Rei y Leeseo</strong>. El grupo destaca por una mezcla impecable de experiencia y frescura, contando con <strong>An Yujin</strong> y <strong>Jang Wonyoung</strong> (ex-miembros de <em>IZ*ONE</em>) junto a talentosas trainees de la agencia, creando un estándar visual y artístico insuperable.
+        </p>
+
+        <p class="intro-text">
+            Su <em>vibe</em> es puro lujo moderno; una actitud de <strong>"it-girls"</strong> que no siguen tendencias, sino que las marcan sin esfuerzo. Lo que realmente engancha es su <strong>confident self-love</strong>: un amor propio audaz que dice "me quiero tal como soy". Con canciones adictivas y una presencia escénica que impone, han conquistado el mundo y roto récords, consolidándose como la fuerza más elegante del K-pop actual.
+        </p>
+    </section>
+
+        <!-- NUEVA SECCIÓN DE GALERÍA -->
+        <section id="gallery">
+            <h2>Galería</h2>
+            <div class="photo-gallery">
+                <div class="gallery-item">
+                    <img src="Ive2.jpg" alt="IVE Grupo 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-placeholder" style="display: none;">FOTO 1<br>IVE</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="IVE3.jpg" alt="IVE Grupo 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-placeholder" style="display: none;">FOTO 2<br>IVE</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="Ive4.jpg" alt="IVE Grupo 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-placeholder" style="display: none;">FOTO 3<br>IVE</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="members">
+    <h2>Miembros de IVE</h2>
+    <div class="members">
+        <div class="member-card">
+            <div class="member-photo">
+                <img src="Yujin1.jpg" alt="Foto de Yujin">
+            </div>
+            <h3>YUJIN</h3>
+            <p><strong>Nombre completo:</strong> An Yujin (안유진)</p>
+            <p><strong>Posición:</strong> Líder, Vocalista, Bailarina</p>
+            <p><strong>Nacimiento:</strong> 1 de septiembre de 2003</p>
+            <p><strong>Estatura:</strong> 172 cm | <strong>Peso:</strong> 48 kg</p>
+            <p><strong>Perfil:</strong> Líder carismática y "all-rounder" con gran presencia en programas de variedad.</p>
+            <div class="member-instagram">
+                <a href="https://www.instagram.com/_yujin_an/" target="_blank" rel="noopener noreferrer">📷 @_yujin_an</a>
+            </div>
+        </div>
+
+        <div class="member-card">
+            <div class="member-photo">
+                <img src="Gaeul.jpg" alt="Foto de Gaeul">
+            </div>
+            <h3>GAEUL</h3>
+            <p><strong>Nombre completo:</strong> Kim Gaeul (김가을)</p>
+            <p><strong>Posición:</strong> Rapera, Bailarina</p>
+            <p><strong>Nacimiento:</strong> 24 de septiembre de 2002</p>
+            <p><strong>Estatura:</strong> 164 cm | <strong>Peso:</strong> 45 kg</p>
+            <p><strong>Perfil:</strong> La integrante mayor; destaca por su estilo de rap elegante y su personalidad calmada.</p>
+            <div class="member-instagram">
+                <a href="https://www.instagram.com/fallingin__fall/" target="_blank" rel="noopener noreferrer">📷 @fragrance_fall</a>
+            </div>
+        </div>
+
+        <div class="member-card">
+            <div class="member-photo">
+                <img src="Rei.JPG" alt="Foto de Rei">
+            </div>
+            <h3>REI</h3>
+            <p><strong>Nombre completo:</strong> Naoi Rei (直井れい)</p>
+            <p><strong>Posición:</strong> Rapera, Vocalista</p>
+            <p><strong>Nacimiento:</strong> 3 de febrero de 2004</p>
+            <p><strong>Estatura:</strong> 170 cm | <strong>Peso:</strong> 47 kg</p>
+            <p><strong>Perfil:</strong> Integrante japonesa con un estilo artístico único y un rap muy melódico.</p>
+            <div class="member-instagram">
+                <a href="https://www.instagram.com/reinyourheart/" target="_blank" rel="noopener noreferrer">📷 @rei_naoi</a>
+            </div>
+        </div>
+
+        <div class="member-card">
+            <div class="member-photo">
+                <img src="Wonyoung.jpg" alt="Foto de Wonyoung">
+            </div>
+            <h3>WONYOUNG</h3>
+            <p><strong>Nombre completo:</strong> Jang Wonyoung (장원영)</p>
+            <p><strong>Posición:</strong> Vocalista, Bailarina, Centro y mi Futura esposa</p>
+            <p><strong>Nacimiento:</strong> 31 de agosto de 2004</p>
+            <p><strong>Estatura:</strong> 173 cm | <strong>Peso:</strong> 47 kg</p>
+            <p><strong>Perfil:</strong> La "It Girl" definitiva; icono de la moda con proporciones visuales de modelo.</p>
+            <div class="member-instagram">
+                <a href="https://www.instagram.com/for_everyoung10/" target="_blank" rel="noopener noreferrer">📷 @for_everyoung10</a>
+            </div>
+        </div>
+
+        <div class="member-card">
+            <div class="member-photo">
+                <img src="Liz.jpg" alt="Foto de Liz">
+            </div>
+            <h3>LIZ</h3>
+            <p><strong>Nombre completo:</strong> Kim Jiwon (김지원)</p>
+            <p><strong>Posición:</strong> Vocalista Principal</p>
+            <p><strong>Nacimiento:</strong> 21 de noviembre de 2004</p>
+            <p><strong>Estatura:</strong> 170 cm | <strong>Peso:</strong> 48 kg</p>
+            <p><strong>Perfil:</strong> La voz principal del grupo, conocida por sus lindos hoyuelos y gran rango vocal.</p>
+            <div class="member-instagram">
+                <a href="https://www.instagram.com/liz.yeyo/" target="_blank" rel="noopener noreferrer">📷 @liz.yeyo</a>
+            </div>
+        </div>
+
+        <div class="member-card">
+            <div class="member-photo">
+                <img src="Leeseo.jpg" alt="Foto de Leeseo">
+            </div>
+            <h3>LEESEO</h3>
+            <p><strong>Nombre completo:</strong> Lee Hyunseo (이현서)</p>
+            <p><strong>Posición:</strong> Vocalista, Bailarina, Maknae</p>
+            <p><strong>Nacimiento:</strong> 21 de febrero de 2007</p>
+            <p><strong>Estatura:</strong> 166 cm | <strong>Peso:</strong> 44 kg</p>
+            <p><strong>Perfil:</strong> La menor del grupo; posee una energía vibrante y una mirada intensa en el escenario.</p>
+            <div class="member-instagram">
+                <a href="https://www.instagram.com/eeseooes/" target="_blank" rel="noopener noreferrer">📷 @eeseooes</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <section id="music">
+    <h2>Discografía Completa de IVE</h2>
+    <div class="discography">
+
+        <div class="album">
+            <h3>IVE EMPATHY (2025)</h3>
+            <p><strong>3er EP Coreano</strong> - El regreso con sonido Pop Rock.</p>
+            <p><em>Tracks clave:</em> "Rebel Heart", "Attitude", "XOXO (2025 Ver.)".</p>
+        </div>
+
+        <div class="album">
+            <h3>Supernova Love (2024)</h3>
+            <p><strong>Single Global</strong> - Colaboración con David Guetta.</p>
+        </div>
+
+        <div class="album">
+            <h3>ALIVE (2024)</h3>
+            <p><strong>2do EP Japonés</strong> - Incluye: "CRUSH", "Will", "One and Only".</p>
+        </div>
+
+        <div class="album">
+            <h3>IVE SWITCH (2024)</h3>
+            <p><strong>2do EP Coreano</strong> - Estética de magia tradicional.</p>
+            <p><em>Tracks clave:</em> "HEYA", "Accendio", "Blue Heart", "Ice Queen".</p>
+        </div>
+
+        <div class="album">
+            <h3>I've MINE (2023)</h3>
+            <p><strong>1er EP Coreano</strong> - Triple Title Track.</p>
+            <p><em>Tracks clave:</em> "Baddie", "Off The Record", "Either Way", "Holy Moly".</p>
+        </div>
+
+        <div class="album">
+            <h3>WAVE (2023)</h3>
+            <p><strong>1er EP Japonés</strong> - Debut oficial en Japón.</p>
+            <p><em>Tracks clave:</em> "WAVE", "Classic", "Love Dive (JP Ver.)".</p>
+        </div>
+
+        <div class="album">
+            <h3>I'VE IVE (2023)</h3>
+            <p><strong>1er Álbum de Estudio</strong> - Su obra maestra coreana.</p>
+            <p><em>Tracks clave:</em> "I AM", "Kitsch", "Blue Blood", "Lips", "Mine", "Shine With Me".</p>
+        </div>
+
+        <div class="album">
+            <h3>After LIKE (2022)</h3>
+            <p><strong>3er Single Álbum</strong> - Sampling de "I Will Survive".</p>
+            <p><em>Tracks:</em> "After LIKE", "My Satisfaction".</p>
+        </div>
+
+        <div class="album">
+            <h3>LOVE DIVE (2022)</h3>
+            <p><strong>2do Single Álbum</strong> - Canción del Año (SOTY).</p>
+            <p><em>Tracks:</em> "LOVE DIVE", "Royal".</p>
+        </div>
+
+        <div class="album">
+            <h3>ELEVEN (2021)</h3>
+            <p><strong>Single Álbum Debut</strong> - El inicio del fenómeno.</p>
+            <p><em>Tracks:</em> "ELEVEN", "Take It".</p>
+        </div>
+
+    </div>
+</section>
+
+        <section id="videos">
+            <h2>Videos Musicales</h2>
+            <div class="videos">
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=g36q0ZLvygQ" target="_blank" class="video-thumbnail-link">
+                        <img src="https://img.youtube.com/vi/g36q0ZLvygQ/maxresdefault.jpg" alt="IVE - REBEL HEART">
+                        <div class="play-button"></div>
+                    </a>
+                    <div class="video-info">
+                        <h3>REBEL HEART</h3>
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=B1ShLiq3EVc" target="_blank" class="video-thumbnail-link">
+                        <img src="https://img.youtube.com/vi/B1ShLiq3EVc/maxresdefault.jpg" alt="IVE - XOXZ">
+                        <div class="play-button"></div>
+                    </a>
+                   <div class="video-info">
+                       <h3>XOXZ</h3>
+                       <p></p>
+                   </div>
+                </div>
+
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=PGLx4V680J8" target="_blank" class="video-thumbnail-link">
+                        <img src="https://img.youtube.com/vi/PGLx4V680J8/maxresdefault.jpg" alt="IVE - Accendio">
+                        <div class="play-button"></div>
+                    </a>
+                    <div class="video-info">
+                        <h3>ACCENDIO</h3>
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=07EzMbVH3QE" target="_blank" class="video-thumbnail-link">
+                        <img src="https://img.youtube.com/vi/07EzMbVH3QE/maxresdefault.jpg" alt="IVE - HEYA">
+                        <div class="play-button"></div>
+                    </a>
+                    <div class="video-info">
+                        <h3>HEYA</h3>
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=xU8mQMLx0tk" target="_blank" class="video-thumbnail-link">
+                        <img src="https://img.youtube.com/vi/xU8mQMLx0tk/maxresdefault.jpg" alt="IVE - All Night">
+                        <div class="play-button"></div>
+                    </a>
+                    <div class="video-info">
+                        <h3>ALL NIGHT</h3>
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=Da4P2uT4mVc" target="_blank" class="video-thumbnail-link">
+                        <img src="https://img.youtube.com/vi/Da4P2uT4mVc/maxresdefault.jpg" alt="IVE - Baddie">
+                        <div class="play-button"></div>
+                    </a>
+                    <div class="video-info">
+                        <h3>BADDIE</h3>
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=_ApV7Lm87cg" target="_blank" class="video-thumbnail-link">
+                        <img src="https://img.youtube.com/vi/_ApV7Lm87cg/maxresdefault.jpg" alt="IVE - Off The Record">
+                        <div class="play-button"></div>
+                    </a>
+                    <div class="video-info">
+                        <h3>OFF THE RECORD</h3>
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <a href=" https://www.youtube.com/watch?v=_Hu4GYtye5U" target="_blank" class="video-thumbnail-link">
+                        <img src="https://img.youtube.com/vi/_Hu4GYtye5U/maxresdefault.jpg" alt="IVE - Either Way">
+                        <div class="play-button"></div>
+                    </a>
+                    <div class="video-info">
+                        <h3>EITHER WAY</h3>
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=6ZUIwj3FgUY" target="_blank" class="video-thumbnail-link">
+                        <img src="https://img.youtube.com/vi/6ZUIwj3FgUY/maxresdefault.jpg" alt="IVE - I AM">
+                        <div class="play-button"></div>
+                    </a>
+                    <div class="video-info">
+                        <h3>I AM</h3>
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=pG6iaOMV46I" target="_blank" class="video-thumbnail-link">
+                        <img src="https://img.youtube.com/vi/pG6iaOMV46I/maxresdefault.jpg" alt="IVE - Kitsch">
+                        <div class="play-button"></div>
+                    </a>
+                    <div class="video-info">
+                        <h3>KITSCH</h3>
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=qD1kP_nJU3o" target="_blank" class="video-thumbnail-link">
+                        <img src="https://img.youtube.com/vi/qD1kP_nJU3o/maxresdefault.jpg" alt="IVE - WAVE">
+                        <div class="play-button"></div>
+                    </a>
+                    <div class="video-info">
+                        <h3>WAVE</h3>
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=F0B7HDiY-10" target="_blank" class="video-thumbnail-link">
+                        <img src="https://img.youtube.com/vi/F0B7HDiY-10/maxresdefault.jpg" alt="IVE - After LIKE">
+                        <div class="play-button"></div>
+                    </a>
+                    <div class="video-info">
+                        <h3>AFTER LIKE</h3>
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=Y8JFxS1HlDo" target="_blank" class="video-thumbnail-link">
+                        <img src="https://img.youtube.com/vi/Y8JFxS1HlDo/maxresdefault.jpg" alt="IVE - LOVE DIVE">
+                        <div class="play-button"></div>
+                    </a>
+                    <div class="video-info">
+                        <h3>LOVE DIVE</h3>
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=--FmExEAsM8" target="_blank" class="video-thumbnail-link">
+                        <img src="https://img.youtube.com/vi/--FmExEAsM8/maxresdefault.jpg" alt="IVE - ELEVEN">
+                        <div class="play-button"></div>
+                    </a>
+                    <div class="video-info">
+                        <h3>ELEVEN</h3>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <h3>SIGUE A IVE</h3>
+        <div class="social-links">
+            <a href="https://www.youtube.com/@IVEstarship" target="_blank">YOUTUBE</a>
+            <a href="https://twitter.com/IVEstarship" target="_blank">TWITTER</a>
+            <a href="https://www.instagram.com/IVEstarship" target="_blank">INSTAGRAM</a>
+            <a href="https://www.tiktok.com/@IVEstarship" target="_blank">TIKTOK</a>
+        </div>
+        <p style="margin-top: 50px; font-weight: 300; letter-spacing: 3px; opacity: 0.8;">Soy Herles y me casare con Wonyoung </p>
+    </footer>
+</body>
+</html>
